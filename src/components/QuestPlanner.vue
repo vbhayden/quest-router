@@ -465,7 +465,7 @@ export default {
     onSavePromptClicked() {
       console.log("SAVE PROMPT CLICKED");
 
-      form.routeName = form.routeSelected.name;
+      form.routeName = form.routeSelected;
       this.savePrompt = true;
     },
 
@@ -484,10 +484,7 @@ export default {
       this.savePrompt = false;
       this.presetRoutes = io.loadRoutes();
 
-      console.log("[IO] Current Routes: ", this.presetRoutes.length);
-
-      let routeIndex = io.getRouteIndex(form.routeName);
-      form.routeSelected = this.presetRoutes[routeIndex];
+      form.routeSelected = form.routeName;
 
       this.openSnackbar("Route Saved");
     },
@@ -498,9 +495,11 @@ export default {
         return;
       }
 
+      console.log("IO trying to load:", form.routeSelected, form.routeSelected.name);
+
       let knownRoutes = io.loadRoutes();
       let route = knownRoutes.filter(
-        (r) => r.name == form.routeSelected.name
+        (r) => r.name == form.routeSelected
       )[0];
 
       if (route != undefined) {
@@ -512,7 +511,7 @@ export default {
     },
 
     onDeletePromptClicked() {
-      let routeExists = io.getRouteIndex(form.routeSelected.name) >= 0;
+      let routeExists = io.getRouteIndex(form.routeSelected) >= 0;
       if (routeExists == false) {
         global.showSnackbar("Route Unknown, Could Not Delete?");
         return;
@@ -521,7 +520,7 @@ export default {
       let confirmed = confirm(`Delete route "${form.routeSelected}"?`);
       if (!confirmed) return;
 
-      var success = io.deleteRoute(form.routeSelected.name);
+      var success = io.deleteRoute(form.routeSelected);
       if (success) {
         this.presetRoutes = io.loadRoutes();
         global.showSnackbar("Route Deleted");
