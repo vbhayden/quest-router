@@ -12,6 +12,17 @@ export default {
         MAMMON: "Mammon"
     },
 
+    BOSS_ORDERS: {
+        "Solvaring": 1,
+        "Zelse": 2,
+        "Nepty": 3,
+        "Shilf": 4,
+        "Fargo": 5,
+        "Guilty": 6,
+        "Beigis": 7,
+        "Mammon": 8
+    },
+
     MAIN_ELEMENTS: {
         AIR: "AIR",
         FIRE: "FIRE",

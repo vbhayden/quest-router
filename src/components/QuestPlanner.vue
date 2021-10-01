@@ -111,6 +111,10 @@
                   <v-icon left>mdi-close</v-icon>
                   Delete
                 </v-btn>
+                <v-btn @click="onSummaryClicked" color="warning" plain>
+                  <v-icon left>mdi-crosshairs</v-icon>
+                  Summary
+                </v-btn>
 
                 <v-spacer> </v-spacer>
 
@@ -226,6 +230,55 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
+    <!-- Summary Modal -->
+    <v-dialog v-model="summaryPrompt" width="500" elevation-10>
+      <v-card>
+        <v-card-title class="text-h5 grey lighten-2">
+          Route Additions
+        </v-card-title>
+
+        <v-data-table
+          :items="summaryRows"
+          :headers="summaryHeaders"
+          item-key="index"
+          class="elevation-1"
+          group-by="area"
+          sort-by="bossOrder"
+          disable-pagination
+          :items-per-page="50"
+          :hide-default-footer="true"
+          :hide-default-header="true"
+          show-group-by
+        >
+
+          <template v-slot:group.header="{ group, items, headers, toggle, isOpen }">
+            <td>
+              <v-btn @click="toggle" x-small icon :ref="group">
+                  <v-icon v-if="isOpen">mdi-minus</v-icon>
+                  <v-icon v-else>mdi-plus</v-icon>
+              </v-btn>
+              <span class="mx-5 font-weight-bold">{{ group }} ({{ items.length }} extra)</span>
+            </td>
+          </template>
+
+        </v-data-table>
+
+        <v-divider></v-divider>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            plain
+            color="secondary"
+            @click="onSummaryOKClicked"
+          >
+            Got It
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
   </v-container>
 </template>
 
@@ -260,7 +313,9 @@ let selectedSpirits = spiritRows.filter((row) => row.chosen);
 
 let form = {
   solvaring: DEFAULT_XP_SOLVARING,
-  zelse: DEFAULT_EARLY_ESCAPE ? DEFAULT_XP_ZELSE_ESCAPE : DEFAULT_XP_ZELSE_NORMAL,
+  zelse: DEFAULT_EARLY_ESCAPE
+    ? DEFAULT_XP_ZELSE_ESCAPE
+    : DEFAULT_XP_ZELSE_NORMAL,
   earlyEscape: DEFAULT_EARLY_ESCAPE,
   jp: DEFAULT_JP,
   extraSpirits: 0,
@@ -307,9 +362,16 @@ export default {
       { text: "+/-", value: "delta" },
     ],
 
+    summaryHeaders: [
+      { text: "Boss", value: "area" },
+      { text: "Spirits", value: "description" },
+      // { text: "Order", value: "bossOrder" }
+    ],
+
     singleSelect: false,
 
     savePrompt: false,
+    summaryPrompt: false,
     deletePrompt: false,
 
     form,
@@ -318,6 +380,7 @@ export default {
     presetRoutes,
     componentKey: 0,
     search: "Solvaring",
+    summaryRows: []
   }),
 
   computed: {
@@ -356,7 +419,11 @@ export default {
           let grindXP = formValue ? Number.parseInt(formValue) : 0;
 
           util.addExperience(routeBrian, grindXP, form.earlyEscape);
-          util.addExperience(coreBrian, this.getDefaultZelseXP(), form.earlyEscape);
+          util.addExperience(
+            coreBrian,
+            this.getDefaultZelseXP(),
+            form.earlyEscape
+          );
         }
 
         spiritRows.forEach((row) => {
@@ -398,9 +465,10 @@ export default {
   },
 
   methods: {
-
     getDefaultZelseXP() {
-      return form.earlyEscape ? DEFAULT_XP_ZELSE_ESCAPE : DEFAULT_XP_ZELSE_NORMAL;
+      return form.earlyEscape
+        ? DEFAULT_XP_ZELSE_ESCAPE
+        : DEFAULT_XP_ZELSE_NORMAL;
     },
 
     openSnackbar(message) {
@@ -415,6 +483,24 @@ export default {
     },
     onResetClicked() {
       this.reset();
+    },
+
+    onSummaryClicked() {
+
+      let nonCoreSelections = this.selectedModel.filter(r => !r.core);
+      let nonCoreRows = nonCoreSelections.map(row => {
+        return {
+          ...row,
+          bossOrder: constants.BOSS_ORDERS[row.area]
+        }
+      });
+
+      this.summaryRows = nonCoreRows;
+      this.summaryPrompt = true;
+    },
+
+    onSummaryOKClicked() {
+      this.summaryPrompt = false;
     },
 
     reset() {
@@ -495,12 +581,14 @@ export default {
         return;
       }
 
-      console.log("IO trying to load:", form.routeSelected, form.routeSelected.name);
+      console.log(
+        "IO trying to load:",
+        form.routeSelected,
+        form.routeSelected.name
+      );
 
       let knownRoutes = io.loadRoutes();
-      let route = knownRoutes.filter(
-        (r) => r.name == form.routeSelected
-      )[0];
+      let route = knownRoutes.filter((r) => r.name == form.routeSelected)[0];
 
       if (route != undefined) {
         this.setCurrentRoute(route);
