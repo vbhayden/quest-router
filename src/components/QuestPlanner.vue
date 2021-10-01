@@ -465,7 +465,7 @@ export default {
     onSavePromptClicked() {
       console.log("SAVE PROMPT CLICKED");
 
-      form.routeName = form.routeSelected;
+      form.routeName = form.routeSelected.name;
       this.savePrompt = true;
     },
 
