@@ -22,6 +22,9 @@
         Things like simulating combat might be added later, but for now we will
         just be assigning time additions for spirits and then computing the
         total number of rocks required for each boss as a result.
+        
+        <br /><br />
+        This page doesn't work well on mobile. 😬
       </v-card-text>
 
       <v-divider></v-divider>
