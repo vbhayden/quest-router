@@ -1,3 +1,4 @@
+import constants from "./constants";
 import leveling from "./leveling";
 import formulas from "./formulas";
 
@@ -19,8 +20,15 @@ export default {
     calculateBossRow: function(coreBrian, routeBrian, boss, jp = false) {
         let row = {...boss};
 
-        row.coreHits = formulas.calculateRequiredAvalancheHits(coreBrian.spirits, boss.element, boss.defense, boss.health, jp);
-        row.routeHits = formulas.calculateRequiredAvalancheHits(routeBrian.spirits, boss.element, boss.defense, boss.health, jp);
+        if (boss.name == constants.BOSS_NAMES.SOLVARING) {
+            row.coreHits = formulas.calculateRequiredPillar1Hits(coreBrian.spirits, boss.element, boss.defense, boss.health, jp);
+            row.routeHits = formulas.calculateRequiredPillar1Hits(routeBrian.spirits, boss.element, boss.defense, boss.health, jp);
+        }
+        else {
+            row.coreHits = formulas.calculateRequiredAvalancheHits(coreBrian.spirits, boss.element, boss.defense, boss.health, jp);
+            row.routeHits = formulas.calculateRequiredAvalancheHits(routeBrian.spirits, boss.element, boss.defense, boss.health, jp);
+        }
+
         row.spirits = {...routeBrian.spirits}
         
         row.delta = row.routeHits - row.coreHits;

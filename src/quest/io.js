@@ -9,10 +9,12 @@ export default {
         return presetRoutes;
     },
 
-    saveRoute(name, jp, earlyEscape, spiritRows) {
+    saveRoute(name, jp, earlyEscape, solvaring, zelse, spiritRows) {
         let routes = this.loadRoutes();
         let newRoute = {
             name, 
+            solvaring,
+            zelse,
             jp, 
             earlyEscape, 
             spirits: spiritRows.map(row => row.index)

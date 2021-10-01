@@ -59,8 +59,19 @@ function calculateRequiredAvalancheHits(spirits, enemyElement, enemyDefense, ene
     return Math.ceil(enemyHealth / minimumRockDamage);
 }
 
+function calculatePillar1Damage(spirits, enemyElement, enemyDefense, isJP = false) {
+    return calculateSpellDamage(spirits, 365, constants.ELEMENTS.WATER, enemyElement, enemyDefense, isJP);
+}
+
+function calculateRequiredPillar1Hits(spirits, enemyElement, enemyDefense, enemyHealth, isJP = false) {
+    let minimumRockDamage = calculatePillar1Damage(spirits, enemyElement, enemyDefense, isJP);
+    return Math.ceil(enemyHealth / minimumRockDamage);
+}
+
 export default {
     calculateSpellDamage,
     calculateAvalancheDamage,
-    calculateRequiredAvalancheHits
+    calculateRequiredAvalancheHits,
+    calculatePillar1Damage,
+    calculateRequiredPillar1Hits
 }
