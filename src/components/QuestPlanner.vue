@@ -512,7 +512,7 @@ export default {
     },
 
     onDeletePromptClicked() {
-      let routeExists = io.getRouteIndex(form.routeSelected) >= 0;
+      let routeExists = io.getRouteIndex(form.routeSelected.name) >= 0;
       if (routeExists == false) {
         global.showSnackbar("Route Unknown, Could Not Delete?");
         return;
@@ -521,7 +521,7 @@ export default {
       let confirmed = confirm(`Delete route "${form.routeSelected}"?`);
       if (!confirmed) return;
 
-      var success = io.deleteRoute(form.routeSelected);
+      var success = io.deleteRoute(form.routeSelected.name);
       if (success) {
         this.presetRoutes = io.loadRoutes();
         global.showSnackbar("Route Deleted");
