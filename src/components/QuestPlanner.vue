@@ -111,10 +111,9 @@
                   <v-icon left>mdi-close</v-icon>
                   Delete
                 </v-btn>
-                
-                <v-spacer>
-                </v-spacer>
-                
+
+                <v-spacer> </v-spacer>
+
                 <v-btn @click="onResetClicked" color="primary" plain>
                   <v-icon left>mdi-backup-restore</v-icon>
                   Use Defaults
@@ -197,7 +196,7 @@
     </v-row>
 
     <!-- Save Prompt -->
-    <v-dialog v-model="savePrompt" width="500">
+    <v-dialog v-model="savePrompt" width="500" elevation-10>
       <v-card>
         <v-card-title class="text-h5 grey lighten-2"> Save Route </v-card-title>
 
@@ -246,9 +245,6 @@ const DEFAULT_EARLY_ESCAPE = true;
 const DEFAULT_XP_SOLVARING = 77;
 const DEFAULT_XP_ZELSE_ESCAPE = 605;
 const DEFAULT_XP_ZELSE_NORMAL = 140;
-const DEFAULT_XP_ZELSE = DEFAULT_EARLY_ESCAPE
-  ? DEFAULT_XP_ZELSE_ESCAPE
-  : DEFAULT_XP_ZELSE_NORMAL;
 
 let presetRoutes = io.loadRoutes();
 
@@ -264,7 +260,7 @@ let selectedSpirits = spiritRows.filter((row) => row.chosen);
 
 let form = {
   solvaring: DEFAULT_XP_SOLVARING,
-  zelse: DEFAULT_XP_ZELSE,
+  zelse: DEFAULT_EARLY_ESCAPE ? DEFAULT_XP_ZELSE_ESCAPE : DEFAULT_XP_ZELSE_NORMAL,
   earlyEscape: DEFAULT_EARLY_ESCAPE,
   jp: DEFAULT_JP,
   extraSpirits: 0,
@@ -351,16 +347,16 @@ export default {
           let formValue = form.solvaring;
           let grindXP = formValue ? Number.parseInt(formValue) : 0;
 
-          util.addExperience(coreBrian, grindXP, form.earlyEscape);
           util.addExperience(routeBrian, grindXP, form.earlyEscape);
+          util.addExperience(coreBrian, DEFAULT_XP_SOLVARING, form.earlyEscape);
         }
 
         if (boss.name == constants.BOSS_NAMES.ZELSE) {
           let formValue = form.zelse;
           let grindXP = formValue ? Number.parseInt(formValue) : 0;
 
-          util.addExperience(coreBrian, grindXP, form.earlyEscape);
           util.addExperience(routeBrian, grindXP, form.earlyEscape);
+          util.addExperience(coreBrian, this.getDefaultZelseXP(), form.earlyEscape);
         }
 
         spiritRows.forEach((row) => {
@@ -402,6 +398,11 @@ export default {
   },
 
   methods: {
+
+    getDefaultZelseXP() {
+      return form.earlyEscape ? DEFAULT_XP_ZELSE_ESCAPE : DEFAULT_XP_ZELSE_NORMAL;
+    },
+
     openSnackbar(message) {
       global.showSnackbar(message);
     },
@@ -413,9 +414,13 @@ export default {
       this.search = boss.name;
     },
     onResetClicked() {
+      this.reset();
+    },
+
+    reset() {
       form.earlyEscape = DEFAULT_EARLY_ESCAPE;
       form.jp = DEFAULT_JP;
-      form.zelse = DEFAULT_XP_ZELSE;
+      form.zelse = this.getDefaultZelseXP();
       form.solvaring = DEFAULT_XP_SOLVARING;
 
       this.selectedModel = spiritRows.filter((row) => row.core);
@@ -494,7 +499,9 @@ export default {
       }
 
       let knownRoutes = io.loadRoutes();
-      let route = knownRoutes.filter(r => r.name == form.routeSelected.name)[0];
+      let route = knownRoutes.filter(
+        (r) => r.name == form.routeSelected.name
+      )[0];
 
       if (route != undefined) {
         this.setCurrentRoute(route);
@@ -522,10 +529,10 @@ export default {
     },
 
     onEscapeSwitchChanged() {
-      this.reset();
+      // this.reset();
     },
     onJPSwitchChanged() {
-      this.reset();
+      // this.reset();
     },
 
     onSpiritSelected(arr) {
