@@ -1,14 +1,6 @@
 <template>
   <v-container>
     <v-row class="text-center">
-      <!-- <v-col cols="12">
-        <v-img
-          :src="require('../assets/logo.svg')"
-          class="my-3"
-          contain
-          height="200"
-        />
-      </v-col> -->
 
       <v-col cols="4">
         <v-card flat>
@@ -251,34 +243,31 @@
           :hide-default-header="true"
           show-group-by
         >
-
-          <template v-slot:group.header="{ group, items, headers, toggle, isOpen }">
+          <template
+            v-slot:group.header="{ group, items, headers, toggle, isOpen }"
+          >
             <td>
               <v-btn @click="toggle" x-small icon :ref="group">
-                  <v-icon v-if="isOpen">mdi-minus</v-icon>
-                  <v-icon v-else>mdi-plus</v-icon>
+                <v-icon v-if="isOpen">mdi-minus</v-icon>
+                <v-icon v-else>mdi-plus</v-icon>
               </v-btn>
-              <span class="mx-5 font-weight-bold">{{ group }} ({{ items.length }} extra)</span>
+              <span class="mx-5 font-weight-bold"
+                >{{ group }} ({{ items.length }} extra)</span
+              >
             </td>
           </template>
-
         </v-data-table>
 
         <v-divider></v-divider>
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn
-            plain
-            color="secondary"
-            @click="onSummaryOKClicked"
-          >
+          <v-btn plain color="secondary" @click="onSummaryOKClicked">
             Got It
           </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
-
   </v-container>
 </template>
 
@@ -336,8 +325,7 @@ export default {
     spiritHeaders: [
       { text: "Name", value: "name" },
       { text: "Boss", value: "area" },
-      { text: "Description", value: "description" },
-      { text: "Core?", value: "core" },
+      { text: "Description", value: "description" }
     ],
 
     bossHeaders: [
@@ -380,7 +368,7 @@ export default {
     presetRoutes,
     componentKey: 0,
     search: "Solvaring",
-    summaryRows: []
+    summaryRows: [],
   }),
 
   computed: {
@@ -486,13 +474,12 @@ export default {
     },
 
     onSummaryClicked() {
-
-      let nonCoreSelections = this.selectedModel.filter(r => !r.core);
-      let nonCoreRows = nonCoreSelections.map(row => {
+      let nonCoreSelections = this.selectedModel.filter((r) => !r.core);
+      let nonCoreRows = nonCoreSelections.map((row) => {
         return {
           ...row,
-          bossOrder: constants.BOSS_ORDERS[row.area]
-        }
+          bossOrder: constants.BOSS_ORDERS[row.area],
+        };
       });
 
       this.summaryRows = nonCoreRows;

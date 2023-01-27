@@ -3,7 +3,7 @@ import constants from "./constants"
 
 const names = constants.BOSS_NAMES;
 
-export default [
+const spirits = [
     factory.createSpirit(names.SOLVARING, true, 0, "Melrode Monastery", "In the haystack of the Monastery stable."),
     factory.createSpirit(names.SOLVARING, true, 0, "Melrode", "In the far corner of the sheep green."),
     factory.createSpirit(names.SOLVARING, true, 0, "Holy Plan", "In the souther corner of the eastern shore with trees."),
@@ -17,7 +17,7 @@ export default [
     factory.createSpirit(names.SOLVARING, true, 0, "Connor Forest", "Under a forked tree on the path to the fort."),
     factory.createSpirit(names.SOLVARING, true, 0, "Connor Forest", "By some trees in front of the fort gate."),
 
-
+    // Zelse Start
     factory.createSpirit(names.ZELSE, true, 0, "Dondoran Flats", "End of the eastern path right out of Connor."),
     factory.createSpirit(names.ZELSE, true, 0, "Dondoran Flats", "End of the northern path on the way to Glencoe."),
     factory.createSpirit(names.ZELSE, true, 0, "Dondoran Flats", "End of the northern path from the central glen."),
@@ -51,14 +51,17 @@ export default [
     factory.createSpirit(names.NEPTY, true, 0, "Larapool", "By a slope on the path to Blue Cave, when the water drains."),
     factory.createSpirit(names.NEPTY, true, 0, "Larapool", "By the inn's other basement exit, when the water drains."),
     factory.createSpirit(names.NEPTY, true, 0, "Larapool", "By nitch in the wall of the temple entrance to the Blue Cave."),
+
     factory.createSpirit(names.NEPTY, false, 105, "Blue Cave", "Wrong turn at first arrow."),
     factory.createSpirit(names.NEPTY, false, 60, "Blue Cave", "Wrong turn at fourth arrow."),
     factory.createSpirit(names.NEPTY, true, 0, "Blue Cave", "Base of the pillar at the end of the tunnels."),
     factory.createSpirit(names.NEPTY, false, 25, "Blue Cave", "From maze beginning, left."),
-    factory.createSpirit(names.NEPTY, false, 50, "Blue Cave", "From maze beginning, right, left."),
+    factory.createSpirit(names.NEPTY, true, 50, "Blue Cave", "From maze beginning, right, left."),
     factory.createSpirit(names.NEPTY, false, 28, "Blue Cave", "From maze beginning, strait, right, left."),
     factory.createSpirit(names.NEPTY, true, 0, "Blue Cave", "Behind Epona's house."),
+
     factory.createSpirit(names.NEPTY, true, 0, "Loch Kilderey", "In the hold of Kiliac's ship."),
+    
     factory.createSpirit(names.NEPTY, true, 0, "Isle of Skye", "On the dock."),
     factory.createSpirit(names.NEPTY, true, 0, "Isle of Skye", "By the gate of Colleen's house."),
     factory.createSpirit(names.NEPTY, true, 0, "Isle of Skye", "Behind Colleen's house."),
@@ -67,7 +70,8 @@ export default [
     // Shilf Start
     factory.createSpirit(names.SHILF, true, 0, "Isle of Skye", "Colleen's other room."),
 
-    factory.createSpirit(names.SHILF, false, 20, "East Limelin", "In south corner of bend to main field."),
+    factory.createSpirit(names.SHILF, false, 20, "East Limelin", "Take the boat back to Dondoran Flats and check the boxes in the ship before you exit."),
+    factory.createSpirit(names.SHILF, true, 20, "East Limelin", "In south corner of bend to main field."),
 
     // Quick 5 takes about 1:30
     factory.createSpirit(names.SHILF, false, 0, "Limelin", "By a bushel in the port."),
@@ -84,25 +88,27 @@ export default [
     factory.createSpirit(names.SHILF, true, 0, "East Limelin", "Underneath the scaffold in the mine area."),
     factory.createSpirit(names.SHILF, true, 0, "East Limelin", "By a pile of wood in the shack by the mine."),
     factory.createSpirit(names.SHILF, true, 0, "East Limelin", "By a pile of ore in the shack by the mine."),
-    factory.createSpirit(names.SHILF, true, 0, "Baragoon Tunnel", "By the door before the really long shaft."),
+    factory.createSpirit(names.SHILF, true, 0, "Baragoon Tunnel", "By the door before the really long shaft."),
     factory.createSpirit(names.SHILF, true, 0, "Baragoon Tunnel", "Make a left at the entrance to the halls."),
     factory.createSpirit(names.SHILF, false, 25, "Baragoon Tunnel", "In the lower nitch on the left in the big room of the halls."),
     factory.createSpirit(names.SHILF, false, 35, "Baragoon Tunnel", "By the wall on at the end of the right upper level in the big room of the halls."),
 
     // Fargo Start
-    factory.createSpirit(names.FARGO, true, 0, "Baragoon Tunnel", "In the center of two chests in the first room after the maze."),
+    factory.createSpirit(names.FARGO, true, 0, "Baragoon Tunnel", "Between the two chests in the room after Shilf."),
+
     factory.createSpirit(names.FARGO, false, 15, "Dindom Dries", "In the first tent."),
     factory.createSpirit(names.FARGO, false, 90, "Dindom Dries", "In the southwest corner of the upper section of the desert."),
     factory.createSpirit(names.FARGO, false, 90, "Dindom Dries", "In the middle of the desert; three rock curves east, three dunes south."),
-    factory.createSpirit(names.FARGO, false, 10, "Dindom Dries", "At the wrong turn to enter Greenoch."),
+    factory.createSpirit(names.FARGO, true, 10, "Dindom Dries", "At the wrong turn to enter Greenoch."),
     factory.createSpirit(names.FARGO, false, 60, "Dindom Dries", "Base of the southern edge of the lava field."),
     factory.createSpirit(names.FARGO, true, 0, "Dindom Dries", "In the craggy section of the road."),
     factory.createSpirit(names.FARGO, true, 0, "Dindom Dries", "By the entrance to the Boil Hole, where the road cracks."),
     factory.createSpirit(names.FARGO, false, 30, "Boil Hole", "By a bend in the second roofed section."),
 
     // Guilty Start
-    factory.createSpirit(names.GUILTY, false, 15, "Boil Hole", "In the southern corner in the room with Fargo."),
+    factory.createSpirit(names.GUILTY, true, 15, "Boil Hole", "In the southern corner in the room with Fargo."),
 
+    factory.createSpirit(names.GUILTY, false, 0, "Shamwood", "When exiting the teleporter, hug the right side to find an invisible path around."),
     factory.createSpirit(names.GUILTY, false, 0, "Shamwood", "On the north side of the palace on the ground courtyard."),
     factory.createSpirit(names.GUILTY, false, 0, "Shamwood", "In the treasure room 1."),
     factory.createSpirit(names.GUILTY, false, 0, "Shamwood", "In the treasure room 2."),
@@ -122,5 +128,9 @@ export default [
     factory.createSpirit(names.GUILTY, false, 20, "Brannoch Castle", "In the corner of a room at the first side door."),
 
     // Beigis Start
-    factory.createSpirit(names.BEIGIS, false, 11, "Brannoch Castle", "In the corner of the save room."),
+    factory.createSpirit(names.BEIGIS, true, 11, "Brannoch Castle", "In the corner of the save room."),
 ]
+
+console.log(spirits.length);
+
+export default spirits;

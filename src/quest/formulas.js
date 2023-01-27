@@ -44,8 +44,6 @@ function calculateSpellDamage(spirits, spellPower, spellElement, enemyElement, e
 
     let totalElements = Object.keys(spirits).map(element => spirits[element]).reduce((a, b) => a + b);
     let defenseCoefficient = totalElements / Math.floor(totalElements + enemyDefense);
-
-    // console.log(elementBonus, totalPower, typeCoefficient, rawDamage, totalElements, defenseCoefficient);
     
     return Math.floor(rawDamage * defenseCoefficient);
 }

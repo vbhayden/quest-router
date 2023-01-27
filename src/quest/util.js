@@ -85,6 +85,21 @@ export default {
             return;
         }
         
+        if (spirits.WATER < 48) {
+            spirits.WATER += 1;
+            return;
+        }
+        
+        if (spirits.FIRE < 48) {
+            spirits.FIRE += 1;
+            return;
+        }
+        
+        if (spirits.AIR < 48) {
+            spirits.AIR += 1;
+            return;
+        }
+        
         if (spirits.WATER < 50) {
             spirits.WATER += 1;
             return;

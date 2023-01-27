@@ -1,4 +1,3 @@
-import { part } from "core-js/core/function";
 import constants from "./constants";
 
 function createEnemy(name, health, defense, agility, xp, element) {
