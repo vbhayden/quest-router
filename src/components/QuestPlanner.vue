@@ -1,138 +1,7 @@
 <template>
   <v-container>
     <v-row class="text-center">
-
-      <v-col cols="4">
-        <v-card flat>
-          <v-form ref="form" @submit.prevent="submit">
-            <v-container fluid>
-              <v-row>
-                <v-col cols="4">
-                  <v-card>
-                    <v-card-text>
-                      <div>Extra Spirits</div>
-                      <p class="text-h2 text--primary">
-                        {{ form.extraSpirits }}
-                      </p>
-                      <div
-                        class="text--primary"
-                        v-if="!$vuetify.breakpoint.smAndDown"
-                      >
-                        Amount of additional spirits collected for this route.
-                      </div>
-                    </v-card-text>
-                  </v-card>
-                </v-col>
-                <v-col cols="4">
-                  <v-card>
-                    <v-card-text>
-                      <div>Hit Reduction</div>
-                      <p class="text-h2 text--primary">
-                        {{ form.fewerRocks }}
-                      </p>
-                      <div
-                        class="text--primary"
-                        v-if="!$vuetify.breakpoint.smAndDown"
-                      >
-                        Difference in avalanche hits for this route.
-                      </div>
-                    </v-card-text>
-                  </v-card>
-                </v-col>
-
-                <v-col cols="4">
-                  <v-text-field
-                    v-model="form.solvaring"
-                    color="purple darken-2"
-                    label="Solvaring XP Grind"
-                    type="number"
-                    outlined
-                    dense
-                    required
-                  />
-                  <v-text-field
-                    v-model="form.zelse"
-                    color="blue darken-2"
-                    label="Zelse XP Grind"
-                    type="number"
-                    outlined
-                    dense
-                    required
-                    hide-details
-                  />
-                  <v-switch
-                    v-model="form.earlyEscape"
-                    label="Early Escape"
-                    color="red"
-                    @change="onEscapeSwitchChanged(this)"
-                    hide-details
-                  />
-                  <v-switch
-                    v-model="form.jp"
-                    label="JP Version"
-                    color="red"
-                    @change="onJPSwitchChanged(this)"
-                    hide-details
-                  />
-                </v-col>
-              </v-row>
-            </v-container>
-
-            <v-row style="margin: 10px">
-              <v-select
-                :items="presetRoutes"
-                v-model="form.routeSelected"
-                v-on:change="onRouteSelected"
-                item-text="name"
-                label="Route Presets"
-                solo
-                hide-details
-              ></v-select>
-            </v-row>
-            <v-row style="margin: 10px">
-              <v-btn-toggle borderless>
-                <v-btn @click="onLoadRouteClicked" color="secondary" plain>
-                  <v-icon left>mdi-pencil</v-icon>
-                  Load
-                </v-btn>
-                <v-btn @click="onSavePromptClicked" color="success" plain>
-                  <v-icon left>mdi-content-save</v-icon>
-                  Save
-                </v-btn>
-                <v-btn @click="onDeletePromptClicked" color="error" plain>
-                  <v-icon left>mdi-close</v-icon>
-                  Delete
-                </v-btn>
-                <v-btn @click="onSummaryClicked" color="warning" plain>
-                  <v-icon left>mdi-crosshairs</v-icon>
-                  Summary
-                </v-btn>
-
-                <v-spacer> </v-spacer>
-
-                <v-btn @click="onResetClicked" color="primary" plain>
-                  <v-icon left>mdi-backup-restore</v-icon>
-                  Use Defaults
-                </v-btn>
-              </v-btn-toggle>
-            </v-row>
-          </v-form>
-        </v-card>
-
-        <!-- BOSS / DELTA TABLE -->
-        <v-data-table
-          hide-default-footer
-          id="bossTable"
-          :headers="bossHeaders"
-          :items="bossRows"
-        >
-          <template v-slot:[`item.delta`]="{ item }">
-            <v-chip :color="getDeltaColor(item.delta)" dark>
-              {{ item.delta }}
-            </v-chip>
-          </template>
-        </v-data-table>
-      </v-col>
+      <!-- Sidebar / Config Area -->
 
       <!-- SPIRIT TABLE AREA -->
       <v-col cols="8">
@@ -243,9 +112,7 @@
           :hide-default-header="true"
           show-group-by
         >
-          <template
-            v-slot:group.header="{ group, items, headers, toggle, isOpen }"
-          >
+          <template v-slot:[`group.header`]="{ group, items, toggle, isOpen }">
             <td>
               <v-btn @click="toggle" x-small icon :ref="group">
                 <v-icon v-if="isOpen">mdi-minus</v-icon>
@@ -325,7 +192,7 @@ export default {
     spiritHeaders: [
       { text: "Name", value: "name" },
       { text: "Boss", value: "area" },
-      { text: "Description", value: "description" }
+      { text: "Description", value: "description" },
     ],
 
     bossHeaders: [

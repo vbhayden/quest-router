@@ -15,13 +15,24 @@
       </div>
 
       <v-spacer></v-spacer>
-
-      <about-button />
+      <AboutButton />
       
     </v-app-bar>
 
     <v-main>
-      <QuestPlanner />
+      <v-container>
+        <v-row class="text-center">
+          
+          <v-col cols="4">
+            <quest-planner-sidebar />
+          </v-col>
+          
+          <v-col cols="8">
+            <spirit-table />
+          </v-col>
+
+        </v-row>
+      </v-container>
       <!-- <Debug /> -->
     </v-main>
 
@@ -36,14 +47,16 @@
 import EventBus, { ACTIONS } from "./EventBus/index";
 
 import AboutButton from "./components/AboutButton";
-import QuestPlanner from "./components/QuestPlanner";
+import QuestPlannerSidebar from "./components/QuestPlannerSidebar";
+import SpiritTable from "./components/SpiritTable";
 
 export default {
   name: "App",
 
   components: {
-    QuestPlanner,
     AboutButton,
+    QuestPlannerSidebar,
+    SpiritTable,
     // Debug
   },
 
