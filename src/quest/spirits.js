@@ -122,7 +122,7 @@ const spirits = [
     factory.createSpirit(names.GUILTY, true, 0, "Baragoon Moor", "Corner of the inn outside."),
     factory.createSpirit(names.GUILTY, true, 0, "Baragoon Moor", "Second floor of the inn."),
     factory.createSpirit(names.GUILTY, false, 7, "Baragoon Moor", "Northern edge of the platform."),
-    factory.createSpirit(names.GUILTY, false, 40, "Baragoon Moor", "Eastern edge of the platform."),
+    factory.createSpirit(names.GUILTY, false, 25, "Baragoon Moor", "Eastern edge of the platform."),
     factory.createSpirit(names.GUILTY, false, 15, "Baragoon Moor", "Southern edge of the platform."),
     factory.createSpirit(names.GUILTY, false, 31, "Baragoon Moor", "Outer platform in back of Brannoch Castle."),
     factory.createSpirit(names.GUILTY, false, 20, "Brannoch Castle", "In the corner of a room at the first side door."),
