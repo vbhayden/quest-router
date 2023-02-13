@@ -128,7 +128,7 @@ const spirits = [
     factory.createSpirit(names.GUILTY, false, 20, "Brannoch Castle", "In the corner of a room at the first side door."),
 
     // Beigis Start
-    factory.createSpirit(names.BEIGIS, true, 11, "Brannoch Castle", "In the corner of the save room."),
+    factory.createSpirit(names.BEIGIS, true, 0, "Brannoch Castle", "In the corner of the save room."),
 ]
 
 console.log(spirits.length);
