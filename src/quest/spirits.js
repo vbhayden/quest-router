@@ -74,6 +74,7 @@ const spirits = [
     factory.createSpirit(names.SHILF, true, 20, "East Limelin", "In south corner of bend to main field."),
 
     // Quick 5 takes about 1:30
+    // All but Library takes ~2:50
     factory.createSpirit(names.SHILF, false, 0, "Limelin", "By a bushel in the port."),
     factory.createSpirit(names.SHILF, false, 0, "Limelin", "By the fence of the condemned house."),
     factory.createSpirit(names.SHILF, false, 0, "Limelin", "By the gate of the grain field."),
